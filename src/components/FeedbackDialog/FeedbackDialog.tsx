@@ -3,6 +3,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Rating, G
 import CustomButton from '../Shared/CustomButton/CustomButton';
 import styles from './FeedbackDialog.module.scss';
 import { StyledTextField } from '../../assets/theme/theme';
+import { FeedbackInformationFormDto } from '../../utilities/models';
 const FeedbackDialog:React.FC<{
     isOpenFeedbackDialog: boolean
     onCallback(con: boolean): void
@@ -12,9 +13,13 @@ const FeedbackDialog:React.FC<{
     onInputHandleChange(property: string, value: any): void;
     handleInputFocus(property: string, section: string): void;
     confirmButtonTitle?: string
-    feedback:any
+    FeedBackInformationForm:FeedbackInformationFormDto
     cancelButtonTitle?: string
 }>=(props) => {
+ const email=props.FeedBackInformationForm.email
+ const description=props.FeedBackInformationForm.description
+ const rating=props.FeedBackInformationForm.rating
+ 
   return (
     <Dialog
       className={styles.dialogCard}
@@ -24,7 +29,7 @@ const FeedbackDialog:React.FC<{
     >
       <DialogTitle id="feedback-dialog-title">
       <Typography sx={{
-         fontSize: '16px',
+         fontSize: '24px',
          fontWeight: 'bold',
          color: 'white',
       }} >  Feedback</Typography>
@@ -34,31 +39,31 @@ const FeedbackDialog:React.FC<{
            <Grid item xs={12} md={12} sx={{marginTop:"1rem"}}>
                 <StyledTextField 
                       fullWidth
-                      label="Manager Name"
-                      placeholder='Enter Manager Name '
+                      label="Email"
+                      placeholder='Enter Email '
                       size='small'
-                      value={props.feedback.value}
-                      error={!!props.feedback.error}
-                      disabled={props.feedback.disable}
-                      required={props.feedback.isRequired}
-                      helperText={props.helperText && props.feedback.error}
-                      onFocus={() => props.handleInputFocus('name', 'GI')}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('name', event.target.value)}
+                      value={email.value}
+                      error={!!email.error}
+                      disabled={email.disable}
+                      required={email.isRequired}
+                      helperText={props.helperText && email.error}
+                      onFocus={() => props.handleInputFocus('email', 'GI')}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('email', event.target.value)}
                     />
                     </Grid>
                     <Grid item xs={12} md={12}>
                     <StyledTextField
                       fullWidth
-                      label="Manager Name"
-                      placeholder='Enter Manager Name '
+                      label="Description "
+                      placeholder='Enter description '
                       size='small'
-                      value={props.feedback.value}
-                      error={!!props.feedback.error}
-                      disabled={props.feedback.disable}
-                      required={props.feedback.isRequired}
-                      helperText={props.helperText && props.feedback.error}
-                      onFocus={() => props.handleInputFocus('name', 'GI')}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('name', event.target.value)}
+                      value={description.value}
+                      error={!!description.error}
+                      disabled={description.disable}
+                      required={description.isRequired}
+                      helperText={props.helperText && description.error}
+                      onFocus={() => props.handleInputFocus('description', 'GI')}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('description', event.target.value)}
                     />
            
                 </Grid>  
@@ -68,12 +73,13 @@ const FeedbackDialog:React.FC<{
                     fontWeight: 'bold',
                     color: 'white',
                     marginBottom: '10px'
-                    
                 }}> Ratings</Typography> 
                 <Rating
                 name="rating"
-                value={props.feedback.rating}
-                onChange={(event: any) => props.onInputHandleChange('name', event.target.value)}
+                disabled={rating.disable}
+                readOnly={rating.readonly}
+                value={rating.value}
+                onChange={(event: any) => props.onInputHandleChange('rating', event.target.value)}
                 />
                 </Grid>
         </Grid>

@@ -5,13 +5,21 @@ import dayjs from 'dayjs'
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { APP_TABLE_CONFIGS, Manager_SCREEN_MODES, APP_ROUTES, feedbacks } from '../../utilities/constants'
-import { SortMetaDto, FeedbackDto } from '../../utilities/models'
+import { SortMetaDto, FeedbackDto, FeedbackInformationFormDto } from '../../utilities/models'
 import FeedbackDialog from '../../components/FeedbackDialog/FeedbackDialog'
 const UserFeedbackView = () => {
     const INITIAL_SORT_META: SortMetaDto = {
         field: "",
         asc: false,
       }
+      const FEEDBACK_INFORMATION_FORM_INITIAL_STATE:FeedbackInformationFormDto = {
+          id: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
+          description: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
+          email: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
+          adminResponse: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
+          rating: { value: 0, isRequired: false, disable: false, readonly: false, validator: "number", error: "", },
+      }
+
       const [page, setPage] = useState(0)
       const [rowsPerPage, setRowsPerPage] = useState(APP_TABLE_CONFIGS.DEFAULT_ROWS_PER_PAGE)
       const [sortMeta, setSortMeta] = useState<SortMetaDto>(INITIAL_SORT_META);
@@ -20,14 +28,14 @@ const UserFeedbackView = () => {
     
       const [isOpenConfirmationDialog, setisOpenConfirmationDialog] = useState(false);
 
-      const [isOpenFeedbackDialog, setisOpenFeedbackDialog] = useState(false);
+      
 
 
       const navigate = useNavigate()
       const [screenMode, setScreenMode] = useState("");
       const [helperText, setHelperText] = useState(true);
-      const [managerInformationForm, setManagerInformationForm] = useState();
-
+      const [FeedBackInformationForm, setFeedBackInformationForm] = useState(FEEDBACK_INFORMATION_FORM_INITIAL_STATE);
+      const [isOpenFeedbackDialog, setisOpenFeedbackDialog] = useState(false);
  
 
 
@@ -115,15 +123,15 @@ const UserFeedbackView = () => {
         // getAllManagers()
       }
       const handleAction=(id:string,type:string) =>{
-        if(type===Manager_SCREEN_MODES.DELETE){
-          console.log("delete",id)
-          sessionStorage.setItem("id", id);
-          setisOpenConfirmationDialog(true);
-        }else{
-          sessionStorage.setItem("Mode",type);
-          sessionStorage.setItem("id", id);
-          navigate(APP_ROUTES.CREATE_MANAGER)
-        }
+        // if(type===Manager_SCREEN_MODES.DELETE){
+        //   console.log("delete",id)
+        //   sessionStorage.setItem("id", id);
+        //   setisOpenConfirmationDialog(true);
+        // }else{
+        //   sessionStorage.setItem("Mode",type);
+        //   sessionStorage.setItem("id", id);
+        //   navigate(APP_ROUTES.CREATE_MANAGER)
+        // }
       }
     
       const handelDelete = (con: boolean) => {
@@ -186,7 +194,35 @@ const UserFeedbackView = () => {
     }
 
     const onInputHandleChange = (property: string, value: any) => {
-
+        setHelperText(true);
+        console.log("first",property,value)
+        if(property==="email"){
+            setFeedBackInformationForm({
+               ...FeedBackInformationForm,
+               email: {
+                 ...FeedBackInformationForm.email,
+                 value: value,
+               },
+             });
+           }
+           if(property==="description"){
+            setFeedBackInformationForm({
+               ...FeedBackInformationForm,
+               description: {
+                 ...FeedBackInformationForm.description,
+                 value: value,
+               },
+             });
+           }
+           if(property==="rating"){
+            setFeedBackInformationForm({
+               ...FeedBackInformationForm,
+               rating: {
+                 ...FeedBackInformationForm.rating,
+                 value: value,
+               },
+             });
+           }
     }
 
     const HandleAddFeedBack=()=>{
@@ -220,7 +256,7 @@ const UserFeedbackView = () => {
                />
       </section>
       <FeedbackDialog 
-      feedback={{}}
+      FeedBackInformationForm={FeedBackInformationForm}
       handleInputFocus={handleInputFocus}
       helperText={helperText}
       onInputHandleChange={onInputHandleChange}

@@ -1,5 +1,5 @@
 import { EditOutlined } from '@mui/icons-material'
-import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableBody, IconButton, Tooltip, TablePagination } from '@mui/material';
+import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableBody, IconButton, Tooltip, TablePagination, Rating } from '@mui/material';
 import React from 'react'
 import { StyledTableCell, StyledSwitch } from '../../assets/theme/theme'
 import { APP_ROUTES, APP_TABLE_CONFIGS, Manager_SCREEN_MODES } from '../../utilities/constants'
@@ -24,7 +24,6 @@ const FeedBackTable:React.FC<{
     onSortHandle(col: string): void
     onFilterHandle(col: string, value: any): void;
     getFilterList: (col: string) => string[];
-    // navigateTo(mode: string, id: string): void;
     onClearFilter(): void;
     handleAction(id:string,type:string):void
     handleReportGeneration():void
@@ -81,7 +80,9 @@ const FeedBackTable:React.FC<{
                    <StyledTableCell >{req._id}</StyledTableCell>   
                    <StyledTableCell >{req.description}</StyledTableCell>
                    <StyledTableCell >{req.email}</StyledTableCell>
-                   <StyledTableCell >{req.rating}</StyledTableCell>
+                   <StyledTableCell >
+                     <Rating name="rating"value={req.rating}/>
+                   </StyledTableCell>
                   <StyledTableCell >
                   {req.adminResponse === "Like" && <ThumbUpOffAltIcon />}
                   {req.adminResponse === "Dislike" && <ThumbDownOffAltIcon />}
