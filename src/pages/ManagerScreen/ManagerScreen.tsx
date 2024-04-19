@@ -9,8 +9,6 @@ import { useNavigate } from 'react-router-dom'
 import { APP_ACTION_STATUS, APP_ROUTES, ManagerPositions, Manager_SCREEN_MODES } from '../../utilities/constants'
 import { ApplicationStateDto, ManagerInformationFormDto, OptionsDto } from '../../utilities/models'
 import { validateFormData } from '../../utilities/helpers'
-import { TravelersAction } from '../../redux/action/traveler'
-import { useDispatch, useSelector } from 'react-redux'
 import dayjs from 'dayjs'
 import { ManagerService } from '../../services/manager.service'
 import { ToastContainer, toast } from 'react-toastify';

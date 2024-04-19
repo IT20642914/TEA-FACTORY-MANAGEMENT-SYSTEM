@@ -12,9 +12,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-// import { useDispatch, useSelector } from "react-redux";
-// import { ApplicationStateDto } from "../../../utilities/models/state.model";
-// import { lmSummaryActions } from "../../../redux/actions/lmsummary.action";
+
 Chart.register(ArcElement, Tooltip, Legend);
 
 //TODO SHOULD COME FROM API

@@ -1,1 +1,0 @@
-export { default as TicketReservationManagementGrid } from './TicketReservationManagementGrid/TicketReservationManagementGrid'

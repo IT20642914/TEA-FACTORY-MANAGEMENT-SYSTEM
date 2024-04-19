@@ -20,9 +20,7 @@ import {
 } from "@mui/material";
 
 import { ApplicationStateDto, AuthorizedUserDto } from "../../utilities/models";
-// import { useMsal } from "@azure/msal-react";
-// import { IPublicClientApplication } from "@azure/msal-browser";
-import { useDispatch, useSelector } from "react-redux";
+
 
 import { APP_ROUTES, APP_ACTION_STATUS } from "../../utilities/constants";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +29,6 @@ const AppLayoutHeader: React.FC<{
   authorizedUser: AuthorizedUserDto
 }> = (props) => {
   const navigate = useNavigate()
-  const dispatch = useDispatch();
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [Count, setCount] = useState<number>();
