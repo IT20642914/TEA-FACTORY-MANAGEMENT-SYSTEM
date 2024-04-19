@@ -4,6 +4,8 @@ MANAGER_MANAGEMENT ="/Manager-management",
 CREATE_MANAGER = "/Manager-management/Manager",
 FEEDBACK_MANAGEMENT="/Feedback-management",
 VIEW_FEEDBACK="/Feedback-management/view",
-CREATE_FEEDBACK="/Feedback-management/create"
+
+USER_FEEDBACK_VIEW="/Feedback-management/user",
+CREATE_FEEDBACK="/Feedback-management/user/create",
 
 }

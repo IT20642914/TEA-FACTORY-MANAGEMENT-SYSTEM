@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
  import { APP_ROUTES } from "../utilities/constants";
-import { BoDashboard, Feedback, FeedbackDashboard, Login,ManagerScreen } from '../pages';
+import { BoDashboard, Feedback, FeedbackDashboard, Login,ManagerScreen, UserFeedbackView } from '../pages';
 import Header from '../components/Header/Header';
 
 
@@ -23,8 +23,9 @@ const AppRoutes = () => {
       {/* Feedback Routes */}
       <Route path={APP_ROUTES.FEEDBACK_MANAGEMENT} element={<FeedbackDashboard/>}/>
 
-      <Route path={APP_ROUTES.CREATE_FEEDBACK} element={<MainLayout><Feedback /></MainLayout>} />
-
+         {/* Feedback Routes-User  Header attached */}
+      <Route path={APP_ROUTES.USER_FEEDBACK_VIEW} element={<MainLayout><Feedback /></MainLayout>} />
+      <Route path={APP_ROUTES.CREATE_FEEDBACK} element={<MainLayout><UserFeedbackView /></MainLayout>} />
       </Routes>
     </BrowserRouter>
   )

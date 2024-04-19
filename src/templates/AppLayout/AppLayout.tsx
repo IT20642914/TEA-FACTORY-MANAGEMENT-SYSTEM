@@ -3,7 +3,6 @@ import React from "react";
 import { APP_ROUTES } from "../../utilities/constants";
 import { AppLayoutHeader } from "../index";
 import { NavLink } from "react-router-dom";
-import {  AuthorizedUserDto } from "../../utilities/models";
 import { logo } from "../../assets/images";
 
 const AppLayout: React.FC<{
@@ -11,7 +10,7 @@ const AppLayout: React.FC<{
   componentTitle: string;
 }> = (props) => {
 
-  const authorizedUser: AuthorizedUserDto = {
+  const authorizedUser: any = {
     userId: 1,
     firstName: "John",
     lastName: "Doe",

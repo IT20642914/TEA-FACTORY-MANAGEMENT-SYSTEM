@@ -47,7 +47,7 @@ export const PrimaryTheme = createTheme({
     },
     background: {
       default: "#274D36", // Set a dark background color
-      paper: "#5CAD77", // Set a dark background color for paper elements
+      paper: "rgba(25, 111, 61 , 0.5)", // Set a dark background color for paper elements
     },
   },
   typography: {

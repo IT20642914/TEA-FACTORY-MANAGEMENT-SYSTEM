@@ -19,10 +19,9 @@ import {
   Typography,
 } from "@mui/material";
 
-import {  AuthorizedUserDto } from "../../utilities/models";
 
 const AppLayoutHeader: React.FC<{
-  authorizedUser: AuthorizedUserDto
+  authorizedUser: any
 }> = (props) => {
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);

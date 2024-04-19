@@ -7,18 +7,16 @@ import {
   APP_ROUTES,
 } from "../../utilities/constants";
 import { useNavigate } from "react-router-dom";
-import {  LoginFormDto } from "../../utilities/models";
 
 import { logo } from "../../assets/images";
 import { validateFormData } from "../../utilities/helpers";
 import LoginFormComponet from "../../components/Login/LoginFormComponet";
-import { LoginDto } from "../../utilities/models/travellor.model";
 import {  toast } from 'react-toastify';
 import { ManagerService } from "../../services/manager.service";
 const Login = () => {
 
 
-const INITIAL_LOGIN_FORM:LoginFormDto={
+const INITIAL_LOGIN_FORM={
   userName:  { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
   passWord:  { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
 }
@@ -34,7 +32,7 @@ const INITIAL_LOGIN_FORM:LoginFormDto={
     setLoginForm(validateData);
     if (isValid) {
 
-      const payload:LoginDto={
+      const payload={
         email: LoginForm.userName.value,
         password: LoginForm.passWord.value
       }

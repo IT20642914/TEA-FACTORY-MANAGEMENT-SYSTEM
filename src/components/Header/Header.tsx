@@ -7,9 +7,8 @@ const Header = () => {
   return (
     <AppBar position="static"sx={{background:"#237542"}} >
     <Toolbar>
-        <img src={logo} alt="Logo" style={{ height: '50px' }} /> 
+        <img src={logo} alt="Logo" style={{ height: '80px' }} /> 
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-     Tea Factory 
       </Typography>
       <Button color="inherit" component={Link} to="/">
         Home
