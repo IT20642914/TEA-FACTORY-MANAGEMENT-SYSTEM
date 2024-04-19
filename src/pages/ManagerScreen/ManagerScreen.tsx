@@ -6,13 +6,13 @@ import GeneralInformation from '../../components/ManagerScreen/GeneralInformatio
 import ContactInformation from '../../components/ManagerScreen/ContactInformation/ContactInformation'
 import { CustomButton } from '../../components/Shared'
 import { useNavigate } from 'react-router-dom'
-import { APP_ACTION_STATUS, APP_ROUTES, ManagerPositions, Manager_SCREEN_MODES } from '../../utilities/constants'
-import { ApplicationStateDto, ManagerInformationFormDto, OptionsDto } from '../../utilities/models'
+import {  APP_ROUTES, ManagerPositions, Manager_SCREEN_MODES } from '../../utilities/constants'
+import {  ManagerInformationFormDto, OptionsDto } from '../../utilities/models'
 import { validateFormData } from '../../utilities/helpers'
 import dayjs from 'dayjs'
 import { ManagerService } from '../../services/manager.service'
-import { ToastContainer, toast } from 'react-toastify';
-const TravelerScreen = () => {
+import { toast } from 'react-toastify';
+const ManagerScreen = () => {
 
     const MANAGER_INFORMATION_FORM_INITIAL_STATE: ManagerInformationFormDto = {
       id: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
@@ -358,5 +358,5 @@ const  setAsInitialState=() => {
   )
 }
 
-export default TravelerScreen
+export default ManagerScreen
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-empty-pattern */
 import { TreeItem, treeItemClasses, TreeItemProps } from "@mui/lab";
 import {
   alpha,
@@ -17,8 +18,6 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import DatePicker from "react-multi-date-picker";
 import "../theme/constants.scss";
 import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
@@ -127,7 +126,7 @@ export const StickyTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export const StyledTableCell = styled(TableCell, {
-  shouldForwardProp: (prop) => prop !== "width",
+  shouldForwardProp: (prop: string) => prop !== "width",
 })(({ theme, width }) => ({
   [`&.${tableCellClasses.head}`]: {
     fontSize: 14,
@@ -153,7 +152,7 @@ export const StyledTableCell = styled(TableCell, {
   },
 }));
 
-export const StyledTableRow = styled(TableRow)(({ theme }) => ({
+export const StyledTableRow = styled(TableRow)(({ theme }:any) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
@@ -163,13 +162,13 @@ export const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export const StyledCheckBox = styled(Checkbox)(({ theme }) => ({
+export const StyledCheckBox = styled(Checkbox)(({ theme }:any) => ({
   "&.MuiCheckbox-colorPrimary": {
     color: theme.palette.common.white,
   },
 }));
 
-export const StyledTextField = styled(TextField)(({ theme }) => ({
+export const StyledTextField = styled(TextField)(() => ({
   "& .MuiInputBase-root": {
     backgroundColor: "#5CAD77",
     color: "white",
@@ -214,7 +213,7 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
   },
 }));
 
-export const StyledSelect = styled(Select)(({ theme }) => ({
+export const StyledSelect = styled(Select)(() => ({
   "& .MuiSelect-root": {
     backgroundColor: "#5CAD77",
     color: "white",
@@ -258,7 +257,7 @@ export const StyledSelect = styled(Select)(({ theme }) => ({
   },
 }));
 
-export const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
+export const StyledAutocomplete = styled(Autocomplete)(() => ({
   "& .MuiInputBase-root": {
     color: "white",
     backgroundColor: "#0c361c",
@@ -302,7 +301,7 @@ export const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
   },
 }));
 
-export const StyledTimePickerInput = styled(MobileTimePicker)(({ theme }) => ({
+export const StyledTimePickerInput = styled(MobileTimePicker)(() => ({
   "& .MuiInputBase-root": {
     color: "white",
     backgroundColor: "#5CAD77",

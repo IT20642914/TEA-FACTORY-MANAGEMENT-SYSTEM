@@ -16,12 +16,11 @@ import {
 Chart.register(ArcElement, Tooltip, Legend);
 
 //TODO SHOULD COME FROM API
-const departmentName = " Knitting Department";
 
 const SummaryChart = (props: any) => {
-  const [reqData, setReqData] = useState<
-    { pending: string; approved: string; rejected: string }[]
-  >([{ pending: "2", approved: "2", rejected: "3" }]);
+  // const [reqData, setReqData] = useState<
+  //   { pending: string; approved: string; rejected: string }[]
+  // >([{ pending: "2", approved: "2", rejected: "3" }]);
   const [totalRequests, setTotalRequests] = useState<number>(0);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,7 +53,6 @@ const SummaryChart = (props: any) => {
   };
 
   useEffect(() => {
-    setReqData(props.summaryChartData);
     const updatedTotal = getTotal(data);
     setTotalRequests(updatedTotal);
   }, [props, data]);
@@ -127,7 +125,6 @@ const SummaryChart = (props: any) => {
             ? textConfigRef.current.text
             : [textConfigRef.current.text];
           const lineHeight = textConfigRef.current.font.size + 2;
-          const totalHeight = lineHeight * lines.length;
 
           const x =
             (chartArea.left + chartArea.right) / 2 + textConfigRef.current.x;

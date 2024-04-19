@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import styles from "./Login.module.scss";
 
-import { Button, Grid } from "@mui/material";
+import { Button } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import {
   APP_ROUTES,
 } from "../../utilities/constants";
 import { useNavigate } from "react-router-dom";
-import { ApplicationStateDto, LoginFormDto } from "../../utilities/models";
+import {  LoginFormDto } from "../../utilities/models";
 
 import { logo } from "../../assets/images";
-import { StyledTextField } from "../../assets/theme/theme";
 import { validateFormData } from "../../utilities/helpers";
 import LoginFormComponet from "../../components/Login/LoginFormComponet";
-import { LoginDto, LoginResponseDto } from "../../utilities/models/travellor.model";
-import { ToastContainer, toast } from 'react-toastify';
+import { LoginDto } from "../../utilities/models/travellor.model";
+import {  toast } from 'react-toastify';
 import { ManagerService } from "../../services/manager.service";
 const Login = () => {
 

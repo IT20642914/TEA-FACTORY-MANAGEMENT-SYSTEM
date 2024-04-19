@@ -1,13 +1,11 @@
 import React from 'react'
 import style from './BoDashboard.module.scss'
 import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableBody, IconButton, Tooltip, TablePagination } from '@mui/material';
-import moment from 'moment';
-import { StyledTableCell, StyledStatusApproved, StyledStatusRejected, StyledStatusPending, StyledStatusDraft, StyledSwitch } from '../../../assets/theme/theme';
+import { StyledTableCell, StyledSwitch } from '../../../assets/theme/theme';
 import { APP_ROUTES, APP_TABLE_CONFIGS, Manager_SCREEN_MODES } from '../../../utilities/constants';
 import { CustomButton, CustomHeaderCell, AppSkeleton } from '../../Shared';
 import { Manager, SortMetaDto } from '../../../utilities/models';
 import { useNavigate } from 'react-router-dom'
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { EditOutlined } from '@mui/icons-material';
