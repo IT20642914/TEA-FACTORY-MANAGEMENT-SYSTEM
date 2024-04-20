@@ -4,6 +4,7 @@ import CustomButton from '../Shared/CustomButton/CustomButton';
 import styles from './FeedbackDialog.module.scss';
 import { StyledTextField } from '../../assets/theme/theme';
 import { FeedbackInformationFormDto } from '../../utilities/models';
+import { Manager_SCREEN_MODES } from '../../utilities/constants';
 const FeedbackDialog:React.FC<{
     isOpenFeedbackDialog: boolean
     onCallback(con: boolean): void
@@ -15,11 +16,13 @@ const FeedbackDialog:React.FC<{
     confirmButtonTitle?: string
     FeedBackInformationForm:FeedbackInformationFormDto
     cancelButtonTitle?: string
+    handleEditRequest():void
 }>=(props) => {
  const email=props.FeedBackInformationForm.email
  const description=props.FeedBackInformationForm.description
  const rating=props.FeedBackInformationForm.rating
- 
+ const _mode = sessionStorage.getItem("Mode");
+
   return (
     <Dialog
       className={styles.dialogCard}
@@ -86,7 +89,9 @@ const FeedbackDialog:React.FC<{
       </DialogContent>
       <DialogActions>
         <CustomButton text={props.cancelButtonTitle ? props.cancelButtonTitle : 'Cancel'} border='1px solid #6e6e6e' bgColor='#282828' onClick={() => props.onCallback(false)} />
-        <CustomButton text={props.confirmButtonTitle ? props.confirmButtonTitle : 'Confirm'} onClick={() => props.onCallback(true)}/>
+        {_mode=== Manager_SCREEN_MODES.CREATE && <CustomButton text={props.confirmButtonTitle ? props.confirmButtonTitle : 'Confirm'} onClick={() => props.onCallback(true)}/>}
+        {_mode=== Manager_SCREEN_MODES.EDIT && <CustomButton text={'Edit Feedback'} onClick={() => props.handleEditRequest()}/>}
+      
       </DialogActions>
     </Dialog>
   )

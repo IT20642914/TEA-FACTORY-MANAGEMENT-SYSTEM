@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './UserFeedbackView.module.scss'
 import FeedBackTable from '../../components/FeedBackTable/FeedBackTable'
 import dayjs from 'dayjs'
@@ -7,6 +7,10 @@ import { useNavigate } from 'react-router-dom'
 import { APP_TABLE_CONFIGS, Manager_SCREEN_MODES, APP_ROUTES, feedbacks } from '../../utilities/constants'
 import { SortMetaDto, FeedbackDto, FeedbackInformationFormDto } from '../../utilities/models'
 import FeedbackDialog from '../../components/FeedbackDialog/FeedbackDialog'
+import { FeedBackService } from '../../services/feedback.service'
+import { validateFormData } from '../../utilities/helpers'
+import { toast } from 'react-toastify'
+import ConfirmationDialog from '../../components/Shared/ConfirmationDialog/ConfirmationDialog'
 const UserFeedbackView = () => {
     const INITIAL_SORT_META: SortMetaDto = {
         field: "",
@@ -15,15 +19,16 @@ const UserFeedbackView = () => {
       const FEEDBACK_INFORMATION_FORM_INITIAL_STATE:FeedbackInformationFormDto = {
           id: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
           description: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
-          email: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
+          email: { value: "", isRequired: false, disable: false, readonly: false, validator: "email", error: "", },
           adminResponse: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
           rating: { value: 0, isRequired: false, disable: false, readonly: false, validator: "number", error: "", },
+          userID: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", }
       }
 
       const [page, setPage] = useState(0)
       const [rowsPerPage, setRowsPerPage] = useState(APP_TABLE_CONFIGS.DEFAULT_ROWS_PER_PAGE)
       const [sortMeta, setSortMeta] = useState<SortMetaDto>(INITIAL_SORT_META);
-      const [filteredList, setFilteredList] = useState<FeedbackDto[]>(feedbacks)
+      const [filteredList, setFilteredList] = useState<FeedbackDto[]>([])
       const [isFiltered, setIsFiltered] = useState(false)
     
       const [isOpenConfirmationDialog, setisOpenConfirmationDialog] = useState(false);
@@ -40,6 +45,9 @@ const UserFeedbackView = () => {
 
 
 
+useEffect(() => {
+    getFeedbacks()
+}, [])
 
       const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage)
@@ -123,33 +131,48 @@ const UserFeedbackView = () => {
         // getAllManagers()
       }
       const handleAction=(id:string,type:string) =>{
-        // if(type===Manager_SCREEN_MODES.DELETE){
-        //   console.log("delete",id)
-        //   sessionStorage.setItem("id", id);
-        //   setisOpenConfirmationDialog(true);
-        // }else{
-        //   sessionStorage.setItem("Mode",type);
-        //   sessionStorage.setItem("id", id);
-        //   navigate(APP_ROUTES.CREATE_MANAGER)
-        // }
+        if(type===Manager_SCREEN_MODES.DELETE){
+          console.log("delete",id)
+          sessionStorage.setItem("id", id);
+          setisOpenConfirmationDialog(true);
+        }else{
+          sessionStorage.setItem("Mode",type);
+          sessionStorage.setItem("id", id);
+          FeedBackService.getFeedbackById(id).then((res:any)=>{
+            const _mode = sessionStorage.getItem("Mode");
+            const _isDisable = _mode === Manager_SCREEN_MODES.VIEW
+            if(res.status===200){
+              setFeedBackInformationForm({
+                id: { value: res.data._id, isRequired: false, disable: _isDisable, readonly: _isDisable, validator: "text", error: "", },
+                description: { value: res.data.description, isRequired: _isDisable, disable: _isDisable, readonly: _isDisable, validator: "text", error: "", },
+                email: { value: res.data.email, isRequired: false, disable: _isDisable, readonly: _isDisable, validator: "email", error: "", },
+                adminResponse: { value: res.data.adminResponse, isRequired: false, disable: _isDisable, readonly: _isDisable, validator: "text", error: "", },
+                rating: { value: res.data.rating, isRequired: false, disable: _isDisable, readonly: _isDisable, validator: "number", error: "", },
+                userID: { value: res.data.userID, isRequired: false, disable: _isDisable, readonly: _isDisable, validator: "text", error: "",} })
+                setisOpenFeedbackDialog(true)
+        }}).catch((err)=>{
+            console.log("err",err)
+            toast.error("Failed to get Feedback")
+            })
       }
-    
+      }
       const handelDelete = (con: boolean) => {
         if(con){
           const _id = sessionStorage.getItem("id");
           if(_id){
-            // ManagerService.DeleteManager(_id).then((res:any)=>{
-            //   if(res.data.status===200){
-            //     getAllManagers()
-            //     toast.success(res.data.message)
-            //     setisOpenConfirmationDialog(false)
-            //   }else if(res.data.status===404){
-            //     toast.error(res.data.message)
-            //     setisOpenConfirmationDialog(false)
-            //   }
-            // }).catch((err)=>{
-            //   toast.error("Failed to delete",err)
-            // })
+            FeedBackService.DeleteFeedbackById(_id).then((res:any)=>{
+                console.log("res",res)
+              if(res.status===200){
+                toast.success(res.data)
+                getFeedbacks()
+                setisOpenConfirmationDialog(false)
+              }else if(res.data.status===404){
+                toast.error(res.data.message)
+                setisOpenConfirmationDialog(false)
+              }
+            }).catch((err)=>{
+              toast.error("Failed to delete",err)
+            })
           }
         }
         setisOpenConfirmationDialog(false)
@@ -182,14 +205,14 @@ const UserFeedbackView = () => {
       }
 
       const handleInputFocus = (property: string, section: string) => {
-        // if (section === "GI")
-        // setManagerInformationForm({
-        //   ...managerInformationForm,
-        //   [property]: {
-        //     ...managerInformationForm[property as keyof typeof managerInformationForm],
-        //     error: null,
-        //   },
-        // });
+        if (section === "GI")
+            setFeedBackInformationForm({
+          ...FeedBackInformationForm,
+          [property]: {
+            ...FeedBackInformationForm[property as keyof typeof FeedBackInformationForm],
+            error: null,
+          },
+        });
   
     }
 
@@ -219,7 +242,7 @@ const UserFeedbackView = () => {
                ...FeedBackInformationForm,
                rating: {
                  ...FeedBackInformationForm.rating,
-                 value: value,
+                 value: Number(value),
                },
              });
            }
@@ -228,14 +251,82 @@ const UserFeedbackView = () => {
     const HandleAddFeedBack=()=>{
         setisOpenFeedbackDialog(true)
     }
-    const handelAddFeedback=()=>{
+const handelAddFeedback=async (value:boolean)=>{
+        if(value){
+        const [validateData, isValid] = await validateFormData(FeedBackInformationForm);
+        setFeedBackInformationForm(validateData);
+        if (isValid) {
+           const userId= localStorage.getItem("userId")
+            const payload={
+                email: FeedBackInformationForm.email.value,
+                description: FeedBackInformationForm.description.value,
+                rating: FeedBackInformationForm.rating.value,
+                userID:userId
+              }
+              console.log("payload",payload)
+              FeedBackService.addFeedback(payload).then((res)=>{
+                console.log("res",res)
+                if(res.status===201){
+                  toast.success("Feedback Added Successfully")
+                  setisOpenFeedbackDialog(false)
+                  setFeedBackInformationForm(FEEDBACK_INFORMATION_FORM_INITIAL_STATE)
+                  getFeedbacks()
+                }
+              }).catch((err)=>{
+                console.log("err",err)
+                toast.error("Failed to add Feedback")});
+        }
+    }else{
         setisOpenFeedbackDialog(false)
+        setFeedBackInformationForm(FEEDBACK_INFORMATION_FORM_INITIAL_STATE)
+    }
+}
+
+ const getFeedbacks=()=>{
+  const id= localStorage.getItem("userId")
+  if(id){
+    FeedBackService.getFeedbacksByUserId(id).then((res)=>{
+        console.log("res",res)
+        if(res.status===200){
+            setFilteredList(res.data)
+        }
+    }).catch((err)=>{
+        console.log("err",err)
+        toast.error("Failed to get Feedbacks")
+    })
+  }
+ }
+const handleEditRequest=async ()=>{
+    const [validateData, isValid] = await validateFormData(FeedBackInformationForm);
+    setFeedBackInformationForm(validateData);
+    if (isValid) {
+        const userId= localStorage.getItem("userId")
+        const id= sessionStorage.getItem("id")
+        if(id){
+         const payload={
+             email: FeedBackInformationForm.email.value,
+             description: FeedBackInformationForm.description.value,
+             rating: FeedBackInformationForm.rating.value,
+             userID:userId
+           }
+           FeedBackService.UpdateFeedBack(payload,id).then((res)=>{
+             console.log("res",res)
+             if(res.status===200){
+               toast.success("Feedback Updated Successfully")
+               setisOpenFeedbackDialog(false)
+               setFeedBackInformationForm(FEEDBACK_INFORMATION_FORM_INITIAL_STATE)
+               getFeedbacks()
+             }
+           }).catch((err)=>{
+             console.log("err",err)
+             toast.error("Failed to add Feedback")});
+     }
     }
 
+
+}
   return (
     <><section className={`${styles.container} content-padding container layout-row layout-wrap layout-align-center center`}>
-
-
           <FeedBackTable
               handleAction={handleAction}
               page={page}
@@ -253,6 +344,7 @@ const UserFeedbackView = () => {
               onClearFilter={onClearFilter}
               isFiltered={isFiltered}
               HandleAddFeedBack={HandleAddFeedBack}
+              handleEditRequest={()=>{}}
                />
       </section>
       <FeedbackDialog 
@@ -262,10 +354,17 @@ const UserFeedbackView = () => {
       onInputHandleChange={onInputHandleChange}
       isOpenFeedbackDialog={isOpenFeedbackDialog}
        onCallback={handelAddFeedback}
+       handleEditRequest={handleEditRequest}
        confirmButtonTitle="Add Feedback"
        title="Remove Item"
        content="Do you want to remove this item ?"
       />
+      <ConfirmationDialog
+       isOpenConfirmationDialog={isOpenConfirmationDialog}
+       onCallback={handelDelete}
+       title="Remove Item"
+       content="Do you want to remove this item ?"
+        />
       </>
   )
 }

@@ -1,4 +1,4 @@
-import { FormFieldDto, OptionsDto } from ".";
+import { FormFieldDto } from ".";
 
 export interface FeedbackDto {
     _id: string;
@@ -14,5 +14,6 @@ export interface FeedbackDto {
     email: FormFieldDto<string>;
     adminResponse: FormFieldDto<string|null>;
     rating: FormFieldDto<number>;
+    userID: FormFieldDto<string>;
   }
   

@@ -28,6 +28,7 @@ const FeedBackTable:React.FC<{
     handleAction(id:string,type:string):void
     handleReportGeneration():void
     HandleAddFeedBack():void
+    handleEditRequest(id:string,value:string):void
   } >= (props) => {
     const navigate = useNavigate()
     const userRole = localStorage.getItem('userRole');
@@ -50,8 +51,8 @@ const FeedBackTable:React.FC<{
         {props.isFiltered &&
           <CustomButton text='Clear filter' textColor='black' bgColor='#bfbfbf' onClick={props.onClearFilter} />
         }
-        <CustomButton text='ADD Feedback' onClick={() =>{ props.HandleAddFeedBack() }} />
-       {userRole === 'admins'  && <CustomButton text='Generate Manager Report' onClick={() =>{props.handleReportGeneration() }} />}
+       {userRole === 'user' && <CustomButton text='ADD Feedback' onClick={() =>{ props.HandleAddFeedBack() }} />}
+       {userRole === 'admin'  && <CustomButton text='Generate Manager Report' onClick={() =>{props.handleReportGeneration() }} />}
       </div>
     </div>
 
@@ -90,12 +91,12 @@ const FeedBackTable:React.FC<{
                   </StyledTableCell>
                   {userRole === 'admin' && (
                    <StyledTableCell  >
-                   <IconButton onClick={() => "handleAction(feedback.id, 'like')"}>
+                   <IconButton onClick={() => props.handleEditRequest(req._id,"Like")}>
                   <Tooltip title="Like">
                     <ThumbUpOffAltIcon />
                   </Tooltip>
                 </IconButton>
-                <IconButton onClick={() => "handleAction(feedback.id, 'dislike')"}>
+                <IconButton onClick={() => props.handleEditRequest(req._id,"Dislike")}>
                   <Tooltip title="Dislike">
                     <ThumbDownOffAltIcon />
                   </Tooltip>
@@ -111,13 +112,14 @@ const FeedBackTable:React.FC<{
                           </Tooltip>
                         </IconButton>
                       </Box>
-                      <Box>
+                      {userRole === 'user' &&    <Box>
                         <IconButton size='small' onClick={() => {props.handleAction(req._id.toString() ,Manager_SCREEN_MODES.EDIT) }}>
                           <Tooltip title="Edit">
                             <EditOutlined sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
+                      }
                       <Box>
                         <IconButton size='small' onClick={() => {props.handleAction(req._id.toString() ,Manager_SCREEN_MODES.DELETE) }}>
                           <Tooltip title="Delete">
