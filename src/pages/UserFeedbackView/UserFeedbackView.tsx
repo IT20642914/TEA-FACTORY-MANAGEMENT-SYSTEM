@@ -10,6 +10,7 @@ import { FeedBackService } from '../../services/feedback.service'
 import { validateFormData } from '../../utilities/helpers'
 import { toast } from 'react-toastify'
 import ConfirmationDialog from '../../components/Shared/ConfirmationDialog/ConfirmationDialog'
+import { get } from 'http'
 const UserFeedbackView = () => {
     const INITIAL_SORT_META: SortMetaDto = {
         field: "",
@@ -125,7 +126,7 @@ useEffect(() => {
       };
       const onClearFilter = () => {
         setIsFiltered(false)
-        // getAllManagers()
+        getFeedbacks()
       }
       const handleAction=(id:string,type:string) =>{
         if(type===Manager_SCREEN_MODES.DELETE){

@@ -1,7 +1,7 @@
 import { EditOutlined } from '@mui/icons-material'
-import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableBody, IconButton, Tooltip, TablePagination, Rating } from '@mui/material';
-import React from 'react'
-import { StyledTableCell,  } from '../../assets/theme/theme'
+import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableBody, IconButton, Tooltip, TablePagination, Rating, TextField } from '@mui/material';
+import React, { useState } from 'react'
+import { StyledTableCell, StyledTextField,  } from '../../assets/theme/theme'
 import {  APP_TABLE_CONFIGS, Manager_SCREEN_MODES } from '../../utilities/constants'
 import { FeedbackDto,  SortMetaDto } from '../../utilities/models'
 import { CustomHeaderCell, AppSkeleton, CustomButton } from '../Shared'
@@ -30,7 +30,19 @@ const FeedBackTable:React.FC<{
     handleEditRequest(id:string,value:string):void
   } >= (props) => {
     const userRole = localStorage.getItem('userRole');
+    const [searchTerm, setSearchTerm] = useState('');
 
+    const handleSearchChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+      setSearchTerm(event.target.value);
+    };
+
+    const filteredList = searchTerm
+    ? props.filteredList.filter((item: { description: string; email: string; _id: string | string[]; }) =>
+        item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item._id.includes(searchTerm)
+      )
+    : props.filteredList;
     return (
     <div>
 
@@ -46,12 +58,21 @@ const FeedBackTable:React.FC<{
       </Typography>
       <Box sx={{ flexGrow: 1 }} />
       <div className='layout-row'>
+      <StyledTextField
+          fullWidth
+          label="Search Feedback"
+          variant="outlined"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          placeholder="Search by ID, email, or description..."
+        />
         {props.isFiltered &&
           <CustomButton text='Clear filter' textColor='black' bgColor='#bfbfbf' onClick={props.onClearFilter} />
         }
        {userRole === 'user' && <CustomButton text='ADD Feedback' onClick={() =>{ props.HandleAddFeedBack() }} />}
        {userRole === 'admin'  && <CustomButton text='Generate Manager Report' onClick={() =>{props.handleReportGeneration() }} />}
       </div>
+     
     </div>
 
     <TableContainer component={Paper} className={style.grid}>
@@ -73,7 +94,7 @@ const FeedBackTable:React.FC<{
         )}
         {!props.requestDataIsLoading && props.filteredList.length > 0 &&
           <TableBody>
-            {props.filteredList.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((req: FeedbackDto,index:number) => (
+            { filteredList.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((req: FeedbackDto,index:number) => (
               <TableRow key={req._id}>
                    <StyledTableCell >{index+1}</StyledTableCell>
                    <StyledTableCell >{req._id}</StyledTableCell>   
