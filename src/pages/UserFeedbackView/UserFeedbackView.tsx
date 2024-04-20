@@ -3,8 +3,7 @@ import styles from './UserFeedbackView.module.scss'
 import FeedBackTable from '../../components/FeedBackTable/FeedBackTable'
 import dayjs from 'dayjs'
 import moment from 'moment'
-import { useNavigate } from 'react-router-dom'
-import { APP_TABLE_CONFIGS, Manager_SCREEN_MODES, APP_ROUTES, feedbacks } from '../../utilities/constants'
+import { APP_TABLE_CONFIGS, Manager_SCREEN_MODES } from '../../utilities/constants'
 import { SortMetaDto, FeedbackDto, FeedbackInformationFormDto } from '../../utilities/models'
 import FeedbackDialog from '../../components/FeedbackDialog/FeedbackDialog'
 import { FeedBackService } from '../../services/feedback.service'
@@ -36,8 +35,6 @@ const UserFeedbackView = () => {
       
 
 
-      const navigate = useNavigate()
-      const [screenMode, setScreenMode] = useState("");
       const [helperText, setHelperText] = useState(true);
       const [FeedBackInformationForm, setFeedBackInformationForm] = useState(FEEDBACK_INFORMATION_FORM_INITIAL_STATE);
       const [isOpenFeedbackDialog, setisOpenFeedbackDialog] = useState(false);
@@ -180,27 +177,7 @@ useEffect(() => {
     
     
       const handleReportGeneration=()=>{
-        // ManagerService.GenerateManagerReport().then(async (res:any)=>{
-        //   if(res.data.data){
-        //     const data=res.data.data
-        //     const blob = await pdf(<MyDocument data={data} />).toBlob();
-        //     const url = URL.createObjectURL(blob);
-        //     const link = document.createElement('a');
-        //     link.href = url;
-        //     link.setAttribute('download', 'ManagerReport.pdf');
-        //     document.body.appendChild(link);
-        //     link.click();
-          
-        //     // Cleanup: remove the link and revoke the URL
-        //     if(link.parentNode) link.parentNode.removeChild(link);
-        //     URL.revokeObjectURL(url);
-        //     toast.success("Report Generated Successfully")
-        //   }
-    
-        // }).catch((err)=>{
-    
-    
-        // })
+        console.log("report")
     
       }
 
@@ -249,6 +226,7 @@ useEffect(() => {
     }
 
     const HandleAddFeedBack=()=>{
+        sessionStorage.setItem("Mode",Manager_SCREEN_MODES.CREATE)
         setisOpenFeedbackDialog(true)
     }
 const handelAddFeedback=async (value:boolean)=>{

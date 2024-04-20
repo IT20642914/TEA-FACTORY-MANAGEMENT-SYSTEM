@@ -37,11 +37,17 @@ const INITIAL_LOGIN_FORM={
         password: LoginForm.passWord.value
       }
 
-      ManagerService.Login(payload).then((res)=>{
+      ManagerService.Login(payload).then((res:any)=>{
         console.log("res",res)
         if(res.status===200){
           toast.success("Login Success")
-        navigate(APP_ROUTES.MANAGER_MANAGEMENT)
+          localStorage.setItem("userRole",res.data.role)
+          localStorage.setItem("userId",res.data.id)
+          if(res.data.role==="user"){
+            navigate(APP_ROUTES.USER_FEEDBACK_VIEW)
+          }else{
+            navigate(APP_ROUTES.MANAGER_MANAGEMENT)
+          }
         }
         
     }).catch((err)=>{

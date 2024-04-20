@@ -10,6 +10,10 @@ const navigate=useNavigate()
     const handleFeedBackView=()=>{
         navigate(APP_ROUTES.CREATE_FEEDBACK)
     }
+
+    const handleFaqView=()=>{
+        navigate(APP_ROUTES.View_FAQ)
+    }
   return (
     <section className={`${styles.container} content-padding container layout-row layout-wrap layout-align-center center`}>
     <div className={`${styles.dashboard}`}>
@@ -32,7 +36,7 @@ const navigate=useNavigate()
               <Typography variant="body2">View FAQ</Typography>
             </CardContent>
             <Button className={`${styles.button}`} 
-            >View</Button>
+            onClick={()=>{handleFaqView()}}>View</Button>
           </CardActionArea>
         </Card>
     

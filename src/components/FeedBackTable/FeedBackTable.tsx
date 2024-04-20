@@ -1,14 +1,13 @@
 import { EditOutlined } from '@mui/icons-material'
 import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableBody, IconButton, Tooltip, TablePagination, Rating } from '@mui/material';
 import React from 'react'
-import { StyledTableCell, StyledSwitch } from '../../assets/theme/theme'
-import { APP_ROUTES, APP_TABLE_CONFIGS, Manager_SCREEN_MODES } from '../../utilities/constants'
-import { FeedbackDto, Manager, SortMetaDto } from '../../utilities/models'
+import { StyledTableCell,  } from '../../assets/theme/theme'
+import {  APP_TABLE_CONFIGS, Manager_SCREEN_MODES } from '../../utilities/constants'
+import { FeedbackDto,  SortMetaDto } from '../../utilities/models'
 import { CustomHeaderCell, AppSkeleton, CustomButton } from '../Shared'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import style from './FeedBackTable.module.scss'
-import { useNavigate } from 'react-router-dom';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ReplyIcon from '@mui/icons-material/Reply'; 
@@ -30,7 +29,6 @@ const FeedBackTable:React.FC<{
     HandleAddFeedBack():void
     handleEditRequest(id:string,value:string):void
   } >= (props) => {
-    const navigate = useNavigate()
     const userRole = localStorage.getItem('userRole');
 
     return (

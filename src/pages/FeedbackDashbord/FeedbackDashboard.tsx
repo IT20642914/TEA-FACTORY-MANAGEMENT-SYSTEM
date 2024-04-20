@@ -1,16 +1,12 @@
 import { Grid } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { BoDashboardGrid } from '../../components/BoDashboard'
 import ConfirmationDialog from '../../components/Shared/ConfirmationDialog/ConfirmationDialog'
-import SummaryChart from '../../components/Shared/RequestSummaryChart/SummaryChart'
 import { AppLayout } from '../../templates'
-import { useNavigate } from 'react-router-dom'
-import { APP_ROUTES, APP_TABLE_CONFIGS, Manager_SCREEN_MODES, Managers } from '../../utilities/constants'
+import {  APP_TABLE_CONFIGS, Manager_SCREEN_MODES,  } from '../../utilities/constants'
 import dayjs from 'dayjs'
 import moment from 'moment'
-import {  FeedbackDto, FeedbackInformationFormDto, Manager, SortMetaDto } from '../../utilities/models'
+import {  FeedbackDto, FeedbackInformationFormDto, SortMetaDto } from '../../utilities/models'
 import FeedBackTable from '../../components/FeedBackTable/FeedBackTable'
-import FeedbackDialog from '../../components/FeedbackDialog/FeedbackDialog'
 import { toast } from 'react-toastify'
 import { FeedBackService } from '../../services/feedback.service'
 import { validateFormData } from '../../utilities/helpers'
@@ -30,17 +26,15 @@ const FeedbackDashboard = () => {
     rating: { value: 0, isRequired: false, disable: false, readonly: false, validator: "number", error: "", },
     userID: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", }
 }
-  const navigate = useNavigate()
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(APP_TABLE_CONFIGS.DEFAULT_ROWS_PER_PAGE)
   const [sortMeta, setSortMeta] = useState<SortMetaDto>(INITIAL_SORT_META);
   const [filteredList, setFilteredList] = useState<FeedbackDto[]>([])
   const [isFiltered, setIsFiltered] = useState(false)
 
-  const [screenMode, setScreenMode] = useState("");
-  const [helperText, setHelperText] = useState(true);
+  // const [helperText, setHelperText] = useState(true);
   const [FeedBackInformationForm, setFeedBackInformationForm] = useState(FEEDBACK_INFORMATION_FORM_INITIAL_STATE);
-  const [isOpenFeedbackDialog, setisOpenFeedbackDialog] = useState(false);
+  // const [isOpenFeedbackDialog, setisOpenFeedbackDialog] = useState(false);
 
   useEffect(() => {
     getFeedbacks()
@@ -147,7 +141,7 @@ const FeedbackDashboard = () => {
             adminResponse: { value: res.data.adminResponse, isRequired: false, disable: _isDisable, readonly: _isDisable, validator: "text", error: "", },
             rating: { value: res.data.rating, isRequired: false, disable: _isDisable, readonly: _isDisable, validator: "number", error: "", },
             userID: { value: res.data.userID, isRequired: false, disable: _isDisable, readonly: _isDisable, validator: "text", error: "",} })
-            setisOpenFeedbackDialog(true)
+            // setisOpenFeedbackDialog(true)
     }}).catch((err)=>{
         console.log("err",err)
         toast.error("Failed to get Feedback")
@@ -312,7 +306,7 @@ const MyDocument = ({ data }: any) => (
 }
 
 const onInputHandleChange = (property: string, value: any) => {
-    setHelperText(true);
+    // setHelperText(true);
     console.log("first",property,value)
     if(property==="email"){
         setFeedBackInformationForm({
@@ -344,7 +338,7 @@ const onInputHandleChange = (property: string, value: any) => {
 }
 
 const HandleAddFeedBack=()=>{
-    setisOpenFeedbackDialog(true)
+    // setisOpenFeedbackDialog(true)
 }
 const handelAddFeedback=async (value:boolean)=>{
     if(value){
@@ -363,7 +357,7 @@ const handelAddFeedback=async (value:boolean)=>{
             console.log("res",res)
             if(res.status===201){
               toast.success("Feedback Added Successfully")
-              setisOpenFeedbackDialog(false)
+              // setisOpenFeedbackDialog(false)
               setFeedBackInformationForm(FEEDBACK_INFORMATION_FORM_INITIAL_STATE)
               getFeedbacks()
             }
@@ -372,7 +366,7 @@ const handelAddFeedback=async (value:boolean)=>{
             toast.error("Failed to add Feedback")});
     }
 }else{
-    setisOpenFeedbackDialog(false)
+    // setisOpenFeedbackDialog(false)
     setFeedBackInformationForm(FEEDBACK_INFORMATION_FORM_INITIAL_STATE)
 }
 }
@@ -397,7 +391,7 @@ const handleEditRequest=async (id:string,value:string)=>{
        FeedBackService.UpdateFeedBack(payload,id).then((res)=>{
          if(res.status===200){
            toast.success("Feedback Updated Successfully")
-           setisOpenFeedbackDialog(false)
+          //  setisOpenFeedbackDialog(false)
            setFeedBackInformationForm(FEEDBACK_INFORMATION_FORM_INITIAL_STATE)
            getFeedbacks()
          }

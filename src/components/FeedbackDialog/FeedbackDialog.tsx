@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Rating, Grid, Typography } from '@mui/material';
+import React from 'react';
+import { Dialog, DialogActions, DialogContent, DialogTitle,  Rating, Grid, Typography } from '@mui/material';
 import CustomButton from '../Shared/CustomButton/CustomButton';
 import styles from './FeedbackDialog.module.scss';
 import { StyledTextField } from '../../assets/theme/theme';

@@ -7,5 +7,5 @@ VIEW_FEEDBACK="/Feedback-management/view",
 
 USER_FEEDBACK_VIEW="/Feedback-management/user",
 CREATE_FEEDBACK="/Feedback-management/user/create",
-
+View_FAQ="/Feedback-management/user/faq",
 }
