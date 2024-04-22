@@ -124,20 +124,21 @@ const FeedBackTable:React.FC<{
                  )}
                   <StyledTableCell style={{ backgroundColor: '#274D36' }}>
                   <Box className='layout-row'>
-                    <Box>
-                    <IconButton size='small' onClick={() => {props.handleAction(req._id.toString() ,Manager_SCREEN_MODES.VIEW) }}>
+                  {userRole === 'user' &&  <>  <Box>
+                       <IconButton size='small' onClick={() => {props.handleAction(req._id.toString() ,Manager_SCREEN_MODES.VIEW) }}>
                           <Tooltip title="View">
                             <VisibilityOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
-                      {userRole === 'user' &&    <Box>
+                     <Box>
                         <IconButton size='small' onClick={() => {props.handleAction(req._id.toString() ,Manager_SCREEN_MODES.EDIT) }}>
                           <Tooltip title="Edit">
                             <EditOutlined sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
+                      </>
                       }
                       <Box>
                         <IconButton size='small' onClick={() => {props.handleAction(req._id.toString() ,Manager_SCREEN_MODES.DELETE) }}>
