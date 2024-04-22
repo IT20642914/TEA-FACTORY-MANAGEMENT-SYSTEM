@@ -12,7 +12,7 @@ import {
 } from "chart.js";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import { Line } from "react-chartjs-2";
-import style from "./BudgetGraph.module.scss";
+import style from "./FeedbackGraph.module.scss";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CustomButton from "../CustomButton/CustomButton";
 
@@ -27,7 +27,7 @@ ChartJS.register(
   Legend
 );
 
-const BudgetGraph = (props: any) => {
+const FeedbackGraph = (props: any) => {
   const [budgetData, setBudgetData] = useState([45]);
   // console.log("FROM THE SPOT", _data)
 
@@ -133,4 +133,4 @@ const BudgetGraph = (props: any) => {
   );
 };
 
-export default BudgetGraph;
+export default FeedbackGraph;

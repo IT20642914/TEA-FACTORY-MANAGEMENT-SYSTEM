@@ -10,7 +10,7 @@ import FeedBackTable from '../../components/FeedBackTable/FeedBackTable'
 import { toast } from 'react-toastify'
 import { FeedBackService } from '../../services/feedback.service'
 import { validateFormData } from '../../utilities/helpers'
-import BudgetGraph from '../../components/Shared/RequestBudgetGraph/BudgetGraph'
+import BudgetGraph from '../../components/Shared/RequestBudgetGraph/FeedbackGraph'
 import { Page, Text, View, Document, StyleSheet, pdf,Image  } from '@react-pdf/renderer';
 import { logo } from "../../assets/images";
 const FeedbackDashboard = () => {
