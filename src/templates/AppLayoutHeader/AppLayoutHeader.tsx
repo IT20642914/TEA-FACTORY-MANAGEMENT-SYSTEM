@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./AppLayoutHeader.module.scss";
 import PersonIcon from "@mui/icons-material/Person";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -19,22 +19,12 @@ import {
   Typography,
 } from "@mui/material";
 
-import { ApplicationStateDto, AuthorizedUserDto } from "../../utilities/models";
-// import { useMsal } from "@azure/msal-react";
-// import { IPublicClientApplication } from "@azure/msal-browser";
-import { useDispatch, useSelector } from "react-redux";
-
-import { APP_ROUTES, APP_ACTION_STATUS } from "../../utilities/constants";
-import { useNavigate } from "react-router-dom";
 
 const AppLayoutHeader: React.FC<{
-  authorizedUser: AuthorizedUserDto
+  authorizedUser: any
 }> = (props) => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch();
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-  const [Count, setCount] = useState<number>();
  
   const handleClickPersonIcon = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -47,22 +37,17 @@ const AppLayoutHeader: React.FC<{
   
   const handleSignOut = (instance: any) => {
     setAnchorEl(null);
-    // instance.logoutRedirect().catch((e: any) => {
-    //   // eslint-disable-next-line no-console
-    //   console.error('Signout Error', e)
-    // })
+
   }
   
   const handleClickedNotificationIcon=()=>{
 
-    const TabValue=2
-  //  navigate(APP_ROUTES.PROFILE_VIEW,{ state: { TabValue: TabValue } })
+  
 
 }
 const hanndelprofileClicke=()=>{
   setAnchorEl(null);
-  const TabValue=1
-  // navigate(APP_ROUTES.PROFILE_VIEW,{ state: { TabValue: TabValue } })
+ 
 
 }
 
@@ -145,7 +130,7 @@ const hanndelprofileClicke=()=>{
               color="inherit"
               onClick={handleClickedNotificationIcon}
             >
-              <Badge badgeContent={Count} color="error">
+              <Badge badgeContent={2} color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>

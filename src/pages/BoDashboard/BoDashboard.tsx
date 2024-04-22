@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { AppLayout } from '../../templates'
 import { BoDashboardGrid } from '../../components/BoDashboard'
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { APP_ACTION_STATUS, APP_ROUTES, APP_TABLE_CONFIGS, Manager_SCREEN_MODES } from '../../utilities/constants'
-import { ApplicationStateDto, Manager, SortMetaDto } from '../../utilities/models'
+import {  APP_ROUTES, APP_TABLE_CONFIGS, Manager_SCREEN_MODES } from '../../utilities/constants'
+import {  Manager, SortMetaDto } from '../../utilities/models'
 import dayjs from 'dayjs'
 import moment from 'moment'
 import SummaryChart from '../../components/Shared/RequestSummaryChart/SummaryChart'
 import { Grid } from '@mui/material'
-import { TravelersAction } from '../../redux/action/traveler'
 import ConfirmationDialog from '../../components/Shared/ConfirmationDialog/ConfirmationDialog'
 import { Managers } from '../../utilities/constants/data.constants'
 import { ManagerService } from '../../services/manager.service'
 import { toast } from 'react-toastify'
-import { Page, Text, View, Document, StyleSheet, PDFRenderer, pdf,Image  } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, pdf,Image  } from '@react-pdf/renderer';
 import { logo } from "../../assets/images";
 
 const BoDashboard = () => {
@@ -247,7 +245,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#5CAD77', // Light gray background for the header
   },
   tableCellText: {
-    backgroundColor:"#5CAD77",
+    backgroundColor:"#5CAD97",
     fontSize: 12,
   }
 });

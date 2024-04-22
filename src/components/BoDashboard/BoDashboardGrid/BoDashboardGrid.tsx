@@ -1,16 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import style from './BoDashboard.module.scss'
 import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableBody, IconButton, Tooltip, TablePagination } from '@mui/material';
-import moment from 'moment';
-import { StyledTableCell, StyledStatusApproved, StyledStatusRejected, StyledStatusPending, StyledStatusDraft, StyledSwitch } from '../../../assets/theme/theme';
+import { StyledTableCell, StyledSwitch, StyledTextField } from '../../../assets/theme/theme';
 import { APP_ROUTES, APP_TABLE_CONFIGS, Manager_SCREEN_MODES } from '../../../utilities/constants';
 import { CustomButton, CustomHeaderCell, AppSkeleton } from '../../Shared';
 import { Manager, SortMetaDto } from '../../../utilities/models';
 import { useNavigate } from 'react-router-dom'
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import { EditOutlined } from '@mui/icons-material';
+import { EditOutlined, Numbers } from '@mui/icons-material';
 
 const BoDashboardGrid:React.FC<{
   page: number,
@@ -30,6 +28,21 @@ const BoDashboardGrid:React.FC<{
   handleReportGeneration():void
 } >= (props) => {
   const navigate = useNavigate()
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearchChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredList = searchTerm
+  ? props.filteredList.filter((item: { department: string; position: string; name:string,email:string}) =>
+      item.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()) 
+    )
+  : props.filteredList;
   return (
     <section className={style.gridContainer}>
     <div className={style.gridHeader}>
@@ -42,6 +55,14 @@ const BoDashboardGrid:React.FC<{
       </Typography>
       <Box sx={{ flexGrow: 1 }} />
       <div className='layout-row'>
+      <StyledTextField
+          fullWidth
+          label="Search Manager"
+          variant="outlined"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          placeholder="Search by Department, email, or name..."
+        />
         {props.isFiltered &&
           <CustomButton text='Clear filter' textColor='black' bgColor='#bfbfbf' onClick={props.onClearFilter} />
         }
@@ -71,7 +92,7 @@ const BoDashboardGrid:React.FC<{
         )}
         {!props.requestDataIsLoading && props.filteredList.length > 0 &&
           <TableBody>
-            {props.filteredList.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((req: Manager) => (
+            {filteredList.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((req: Manager) => (
               <TableRow key={req._id}>
                    <StyledTableCell >{req.name}</StyledTableCell>
                    <StyledTableCell >{req.email}</StyledTableCell>

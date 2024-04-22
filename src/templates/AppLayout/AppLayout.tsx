@@ -1,10 +1,8 @@
 import React from "react";
 
-import { APP_ROUTES, USER_ROLES } from "../../utilities/constants";
+import { APP_ROUTES } from "../../utilities/constants";
 import { AppLayoutHeader } from "../index";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { ApplicationStateDto, AuthorizedUserDto } from "../../utilities/models";
 import { logo } from "../../assets/images";
 
 const AppLayout: React.FC<{
@@ -12,7 +10,7 @@ const AppLayout: React.FC<{
   componentTitle: string;
 }> = (props) => {
 
-  const authorizedUser: AuthorizedUserDto = {
+  const authorizedUser: any = {
     userId: 1,
     firstName: "John",
     lastName: "Doe",
@@ -67,7 +65,7 @@ const AppLayout: React.FC<{
                     className={({ isActive }) =>
                       isActive ? "layout-row is-active" : "layout-row"
                     }
-                    to={APP_ROUTES.TR_MANAGEMENT}
+                    to={APP_ROUTES.FEEDBACK_MANAGEMENT}
                   >
                     <div className={`navBarContent navLink layout-row`}>
                       <span>FeedBack Management</span>

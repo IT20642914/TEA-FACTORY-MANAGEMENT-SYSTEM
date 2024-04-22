@@ -2,10 +2,10 @@ export enum APP_ROUTES {
 ROOT = "/",
 MANAGER_MANAGEMENT ="/Manager-management",
 CREATE_MANAGER = "/Manager-management/Manager",
-TR_MANAGEMENT="/ticket-reservation-management",
-BOOK_TICKET="/ticket-reservation-management/create",
-TRAIN_MANAGEMENT="/train-management",
-ADD_TRAIN="/train-management/train",
+FEEDBACK_MANAGEMENT="/Feedback-management",
+VIEW_FEEDBACK="/Feedback-management/view",
 
-CREATE_SHEDULE="/train-management/Create",
+USER_FEEDBACK_VIEW="/Feedback-management/user",
+CREATE_FEEDBACK="/Feedback-management/user/create",
+View_FAQ="/Feedback-management/user/faq",
 }

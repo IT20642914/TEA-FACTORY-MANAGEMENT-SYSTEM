@@ -83,7 +83,7 @@ const CustomHeaderCell: React.FC<HeaderCellProps> = ({
                   value={dateRange}
                   format="YYYY/MM/DD HH:mm"
                   className="bg-dark red"
-                  onChange={value => {
+                  onChange={(value: any) => {
                     if (value && onFilter) {
                       onFilter(id, value)
                       handleDateChange(value)

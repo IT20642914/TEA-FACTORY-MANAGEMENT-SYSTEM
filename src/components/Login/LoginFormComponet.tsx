@@ -1,11 +1,10 @@
 import { Grid } from '@mui/material'
 import React from 'react'
 import { StyledTextField } from '../../assets/theme/theme'
-import { LoginFormDto } from '../../utilities/models'
 
 const LoginForm :React.FC<{
   helperText: boolean
-    LoginForm:LoginFormDto 
+    LoginForm:any 
     onInputHandleChange(property: string, value: any): void;
     handleInputFocus(property: string, section: string): void
 }> =(props) => {

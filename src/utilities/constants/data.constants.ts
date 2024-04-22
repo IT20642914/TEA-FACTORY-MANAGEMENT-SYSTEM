@@ -1,4 +1,4 @@
-import { Manager } from "../models";
+import { FeedbackDto, Manager } from "../models";
 
 export const Managers: Manager[] = [
   {
@@ -66,4 +66,37 @@ export const Managers: Manager[] = [
     salary: 86000,
     mobileNumber: 9876201234
   }
+];
+
+
+export const feedbacks: FeedbackDto[] = [
+  {
+    _id: "FB1001",
+    description: "Very good your products",
+    email: "user1@example.com",
+    rating: 5,
+    adminResponse: 'Like' // Admin liked this feedback
+  },
+  {
+    _id: "FB1002",
+    description: "Tea is very strong",
+    email: "user2@example.com",
+    rating: 4,
+    adminResponse: 'Dislike' // Admin disliked this feedback
+  },
+  {
+    _id: "FB1003",
+    description: "Tea rate is very low",
+    email: "user3@example.com",
+    rating: 3,
+    adminResponse: null // Admin has not responded to this feedback
+  },
+  {
+    _id: "FB1004",
+    description: "Not good",
+    email: "user4@example.com",
+    rating: 1,
+    adminResponse: 'Like' // Admin liked this feedback, perhaps in acknowledgement of the issue raised
+  },
+  // ... more feedback items
 ];

@@ -2,10 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Provider } from "react-redux";
 import "./assets/theme/base.css";
 import "./assets/theme/main.scss";
-import store from "./redux/store";
 import { ThemeProvider } from '@mui/material';
 import { PrimaryTheme } from './assets/theme/theme';
 import { SnackbarProvider } from 'notistack';
@@ -14,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
-  <Provider store={store}>
+  <>
     <ToastContainer
       position="top-right"
       autoClose={5000}
@@ -32,7 +30,7 @@ root.render(
     </SnackbarProvider>
 
     </ThemeProvider>
-    </Provider>
+    </>
 );
 
 // If you want to start measuring performance in your app, pass a function
